@@ -1,7 +1,11 @@
 #!/bin/python3
 
+##############################################
+# This program capture live packet and detect
+# ICMP packets
+##############################################
 import pyshark
-filename=input("Enter your capture file name: ")
+filename=input("Enter your output file name: ")
 inface=input("Enter the interface to capture packet from: ")
 host=input("Enter the host IP address: ")
 capture= pyshark.LiveCapture(interface=inface)#Capture on the interface
