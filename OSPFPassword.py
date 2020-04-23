@@ -15,18 +15,18 @@ ospfPacket=0
 
 for packet in pyshark.FileCapture(sFile):
     if 'OSPF' in packet:
-        if packet.ospf.version=="3": #Detect OSPF version 3 packet
+        if packet['ospf'].version=="3": #Detect OSPF version 3 packet
             FOut.write("Packet %s is an OSPF version 3 packet\n"%packet.frame_info.number)
    
         else:            
-            if packet.ospf.auth_type == "0": #OPSFv2 packet without authentication
+            if packet['ospf'].auth_type == "0": #OPSFv2 packet without authentication
                 FOut.write("No OSPF authentication for packet %s\n"%packet.frame_info.number)
             
-            elif packet.ospf.auth_type == "1": #OSPFv2 packet with plaintext passsword
-                FOut.write("OSPF plaintext password for packet %s is: %s\n"%(packet.frame_info.number,packet.ospf.auth_simple))
+            elif packet['ospf'].auth_type == "1": #OSPFv2 packet with plaintext passsword
+                FOut.write("OSPF plaintext password for packet %s is: %s\n"%(packet.frame_info.number,packet['ospf'].auth_simple))
             
-            elif packet.ospf.auth_type== "2": #OSPFv2 packet with encrypted password
-                FOut.write("OSPF password for %s is encrypted\n"%packet.ospf.frame_info.number)
+            elif packet['ospf'].auth_type== "2": #OSPFv2 packet with encrypted password
+                FOut.write("OSPF password for %s is encrypted\n"%packet.frame_info.number)
         
         FOut.write("OSPF packet detail:\n%s\n\n\n"%packet)
         ospfPacket+=1
