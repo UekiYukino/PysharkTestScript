@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 import pyshark
 file=pyshark.FileCapture(input("Enter your Wireshark file: "))

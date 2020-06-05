@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 ##########################################################
 #This is a script to find OSPFv2 plaintext password in a

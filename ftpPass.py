@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 ##################################################
 # This program read Wireshark captured packet 
