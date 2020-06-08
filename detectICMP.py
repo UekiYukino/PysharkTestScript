@@ -37,25 +37,27 @@ def ipCapture(interface):
         Ip=False
     return Ip
 
+def compareIP(ip1,ip2):
+    for sub1,sub2 in zip(ip1.split('.'), ip2.split('.')):
+        if sub1==sub2:
+            sameIP=True
+        else:
+            sameIP=False
+            break
+    return sameIP
+
 
 #Capturing ICMP packets
 def icmpScanning(fileName, inface, host,packets):
     capture= pyshark.LiveCapture(interface=inface,display_filter='icmp')#Live capture on the interface
     newfile=open(fileName,'w')
     
-    def compareIP(ip1,ip2):
-        for sub1, sub2 in zip(ip1.split('.'),ip2.split('.')):
-            if sub1==sub2:
-                sameIP=True
-            else:
-                sameIP=False
-        return sameIP
 
     for packet in capture.sniff_continuously(packet_count=int(packets)):
         if packet['icmp'].Type=='8': #Capture icmp request
             IPequal=compareIP(packet['ip'].src,host)
             if not IPequal:
-                print ('[+]Someone is trying to ping the server from',packet['ip'].dst)
+                print ('[-]Someone is trying to ping the server from',packet['ip'].dst)
                 newfile.write('ALERT!!! SOMEONE IS TRYING TO PING FROM OUTSIDE\n')
                 newfile.write('Packet coming from host: '+ str(packet['ip'].dst)+'\n')
                 newfile.write(str(packet)+"\n\n")
